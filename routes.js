@@ -30,7 +30,8 @@ MongoClient.connect(url, { useUnifiedTopology: true })
 		        sum = sum + parseInt(documents[i].clinical_study.enrollment["#text"]);
 		    }
                 }
-		console.log(sum);
+		console.log(sum.toString());
+		return res.json({result: sum.toString()});
         });
     });
 	  
