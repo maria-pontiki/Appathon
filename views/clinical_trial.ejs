@@ -19,10 +19,11 @@
                     <input type="text" class="form-control" placeholder="Country" name="country"
                         aria-describedby="basic-addon1">
                 </div>
-                <div> <p id="result"></p></div>
-
-                <input type="submit" class="btn btn-default navbar-btn" value="Submit" />
-
+                <div>
+                    <input type="submit" id="subButton" class="btn btn-default navbar-btn" value="Submit" />
+                    <input type="reset" id="resButton" class="btn btn-default navbar-btn" value="Reset" />
+                    <h4 id="result"></h4>
+                </div>
             </form>
         </div>
     </div>
@@ -30,12 +31,21 @@
 <script>
 
           const $form = $('#CTForm')
-          const $par = $('#result')
+          const $header = $('#result')
+          const $button = $('#subButton')
+          const $resbutton = $('#resButton')
 
           $form.on('submit', submitHandler)
+          $resbutton.click(function() {
+              $header.text("");
+          });
+         
           function submitHandler (e) {
             e.preventDefault()
-            console.log('mpika')
+            $button.prop('value', 'Loading...');
+            $button.prop("disabled",true);
+            $resbutton.prop("disabled",true);
+            console.log('mpika');
             $.ajax({
                  url: '/clinical_trial',
                  type:'POST',
@@ -43,7 +53,11 @@
                  dataType: 'json'
             }).done(function (ret_data) {
                console.log(ret_data);
-               $par.text("result: "+ ret_data.result);
+               $header.text("Total Enrollments "+ ret_data.result);
+               $button.prop('disabled',false);
+               $resbutton.prop("disabled",false);
+               $button.prop("value", "Submit");
+               
             })
            }
         </script>
