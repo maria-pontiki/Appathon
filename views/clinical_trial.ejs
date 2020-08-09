@@ -42,17 +42,18 @@
          
           function submitHandler (e) {
             e.preventDefault()
+            $header.text("");
             $button.prop('value', 'Loading...');
             $button.prop("disabled",true);
             $resbutton.prop("disabled",true);
-            console.log('mpika');
+            //console.log('mpika');
             $.ajax({
                  url: '/clinical_trial',
                  type:'POST',
                  data: $form.serialize(),
                  dataType: 'json'
             }).done(function (ret_data) {
-               console.log(ret_data);
+               //console.log(ret_data);
                $header.text("Total Enrollments "+ ret_data.result);
                $button.prop('disabled',false);
                $resbutton.prop("disabled",false);
