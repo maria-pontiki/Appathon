@@ -27,6 +27,36 @@
             </form>
         </div>
     </div>
+
+
+
+<div class="panel panel-default" id="second_panel" hidden="true">
+
+        <div class="panel-heading">
+            <h3>Result Table</h3>
+        </div>
+        <div class="panel-body">
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">Condition</th>
+      <th scope="col">Country</th>
+      <th scope="col">Status</th>
+      <th scope="col">Enrollments</th>
+    </tr>
+  </thead>
+  <tbody id="table_body">
+  </tbody>
+</table>
+</div>
+</div>
+
+
+
+
 </div>
 <script>
 
@@ -38,11 +68,15 @@
           $form.on('submit', submitHandler)
           $resbutton.click(function() {
               $header.text("");
+              $('#second_panel').prop("hidden",true)
+              $('#table_body').text("")
           });
          
           function submitHandler (e) {
             e.preventDefault()
             $header.text("");
+            $('#second_panel').prop("hidden",true)
+            $('#table_body').text("")
             $button.prop('value', 'Loading...');
             $button.prop("disabled",true);
             $resbutton.prop("disabled",true);
@@ -54,7 +88,30 @@
                  dataType: 'json'
             }).done(function (ret_data) {
                //console.log(ret_data);
+               if (ret_data.status == "400") {
+                   $header.text("No Data Found");
+                   $('#second_panel').prop("hidden",true)
+                   $('#table_body').text("")
+                   $button.prop('disabled',false);
+                   $resbutton.prop("disabled",false);
+                   $button.prop("value", "Submit");
+                   return;
+               }
+               if (ret_data.status == "500") {
+                   $header.text("Input Cannot Be Empty");
+                   $('#second_panel').prop("hidden",true)
+                   $('#table_body').text("")
+                   $button.prop('disabled',false);
+                   $resbutton.prop("disabled",false);
+                   $button.prop("value", "Submit");
+                   return;
+               }
                $header.text("Total Enrollments "+ ret_data.result);
+               var i;
+               for (i = 0; i < ret_data.table.length; i++) {
+                   $('#table_body').append('<tr><th scope=row>'+ ret_data.table[i].id + '</th><td>'+ ret_data.table[i].condition +'</td><td>'+ ret_data.table[i].country +'</td><td>'+ ret_data.table[i].status +'</td><td>'+ ret_data.table[i].enrollments +'</td></tr>');
+               }
+               $('#second_panel').prop("hidden",false)
                $button.prop('disabled',false);
                $resbutton.prop("disabled",false);
                $button.prop("value", "Submit");
