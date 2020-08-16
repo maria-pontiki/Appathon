@@ -8,7 +8,7 @@
 1. Εγκατασταση του node js τοπικα απο τον παρακάτω σύνδεσμο https://nodejs.org/en/download/ . To npm εγκαθισταται αυτόματα.
 2. Καντε clone τον κώδικα απο το git : https://github.com/maria-pontiki/Appathon.git
 3. Καντε install thn Mongo DB. Πληροφορίες : https://docs.mongodb.com/manual/installation/
-4. Καντε download και untar το αρχειο απο αυτο το link: 
+4. Καντε download και untar το αρχειο απο αυτο το link: https://drive.google.com/file/d/1O20Fl8kYVQxkUkuOipqmkhOEsl7i87yu/view?usp=sharing
 5. Καντε import το αρχειο στην mongo db με αυτην την εντολή: mongoimport --db clinicalTrialsTwo --collection trialDataTwo --file clinical_trials_mongo.json
 6. Τρέξτε cd Appathon && npm install για να κανει install τα js modules
 7. Τρέξτε npm start για να ξεκινήσει ο server
